@@ -15,7 +15,7 @@ const page = async () => {
         
         {/* LEFT SIDE – INFO */}
         <div>
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">
+          <h1 className="text-l font-bold text-slate-800 mb-4">
             Get in Touch with NollyPulse — got questions, ideas, feedback, or collab vibes? We’re all ears. Reach out and let’s keep the pulse of Nollywood alive.
 
           </h1>
