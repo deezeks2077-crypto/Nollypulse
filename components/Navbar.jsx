@@ -50,8 +50,8 @@ const Navbar = () => {
     return (
         <section className='sticky top-0 bg-white'>
             <nav className='flex items-center justify-between md:px-10 p-3 py-3 shadow-lg relative bg-blue'>
-                <Link href={"/"} className='flex items-center gap-4  z-50'>
-                    <Image src={"/Logo.png"} alt='logo' width={500} height={500} className='w-15 h-15' />
+                <Link href={"/"} className='flex items-center gap-1  z-50'>
+                    <Image src={"/Logo.png"} alt='logo' width={500} height={500} className='w-10 h-10' />
                     <p className='max-md:hidden font-bold text-3xl text-slate-600'>Nolly</p><p className='max-md:hidden text-3xl font-italic text-red-600'>Pulse</p>
                 </Link>
 

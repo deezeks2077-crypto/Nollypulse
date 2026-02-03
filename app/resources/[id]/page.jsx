@@ -1,29 +1,54 @@
 import React from 'react'
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '@/config/firebase';
+import { FaArrowLeft } from "react-icons/fa";
+import Link from 'next/link';
 
+const fetchSinglePost = async (id) => {
 
-const page = async () => {
-
-    const fetchSinglePost = async (id) => {
-        const docRef = doc(db, "MoviesReviews", id);
+    try {
+        const docRef = doc(db, "Moviereview", id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
+            return { id, ...docSnap.data() };
         } else {
-            // docSnap.data() will be undefined in this case
-            console.log("No such document!");
+            return null;
         }
+    } catch (error) {
+        console.error("AN ERROR OCCURRED", error);
+        throw error;
+    }
+};
 
+const Page = async ({ params }) => {
+    const { id } = await params;
+    console.log(id);    
+
+    const post = await fetchSinglePost(id);
+
+    if (!post) {
+        return <p>Post not found.</p>;
     }
 
-    fetchSinglePost()
     return (
-        <div>
-            dynamic route
-        </div>
-    )
+        <main className='min-h-dvh p-10'>
+            <Link href={"/resources"} className=''><FaArrowLeft /></Link>
+            <section className='w-1/2 mx-auto my-10 space-y-3'>
+                <h1 className='text-center text-2xl font-bold text-gray-900'>{post.title}</h1>
+                <span className='flex items-center gap-1 justify-center'>
+                    <p>by</p>
+                    <p className='font-semibold'>{post.author}</p>
+                </span>
+                <p className='bg-yellow-200 w-fit mx-auto px-4 py-1 rounded-full text-gray-800'>{post.genre}</p>
+                <p className='text-lg'>{post.note}</p>
+                <span className='flex items-center gap-1 text-xs'>
+                    <p>Posted on</p>
+                    <p>{post.timestamp}</p>
+                </span>
+            </section>
+        </main>
+    ); 
 }
 
-export default page
+export default Page;

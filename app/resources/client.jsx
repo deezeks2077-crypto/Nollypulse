@@ -19,7 +19,7 @@ const Client = ({ session }) => {
     const handleFetch = async () => {
         try {
             const userInput = []
-            const querySnapshot = await getDocs(collection(db, "MoviesReviews"));
+            const querySnapshot = await getDocs(collection(db, "MoviesReview"));
             querySnapshot.forEach((doc) => {
                 const libraryObject = {
                     postId: doc.id,
@@ -41,7 +41,7 @@ const Client = ({ session }) => {
 
     const handleDelete = async (id) => {
         try {
-            await deleteDoc(doc(db, "MoviesReviews", id));
+            await deleteDoc(doc(db, "MoviesReview", id));
         } catch (error) {
             console.error("An error occurred while deleting", error)
             alert("Something went wrong")
@@ -77,7 +77,7 @@ const Client = ({ session }) => {
 
                                         <article className='flex items-center flex-col gap-2 my-4'>
                                             <h1 className='font-bold text-2xl uppercase text-center'>{item.title}</h1>
-                                            <p className='bg-orange-200 px-4 py-1 text-sm rounded-full'>{item.category}</p>
+                                            <p className='bg-orange-200 px-4 py-1 text-sm rounded-full'>{item.genre}</p>
                                             <p className='line-clamp-7 font-light text-lg'>
                                                 {item.note}
                                             </p>
