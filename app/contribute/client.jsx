@@ -1,19 +1,19 @@
 "use client";
 import React, { useState } from 'react'
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FaPaperPlane } from "react-icons/fa";
 import * as Yup from 'yup';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '@/config/firebase';
 import { RiLoader2Fill } from "react-icons/ri";
 import Snackbar from '@mui/material/Snackbar';
-import grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid';
 
 
 
-const Client = ({session}) => {
+const Client = ({ session }) => {
 
-    const [sending, setSending] = useState(false)
+  const [sending, setSending] = useState(false)
   const [state, setState] = React.useState({
     open: false,
     vertical: 'top',
@@ -29,28 +29,28 @@ const Client = ({session}) => {
     setState({ ...state, open: false });
   };
 
-  
-    const iv ={
-        title: "",
-        genre: "",
-        review: ""
-    } 
 
-    const formValidation = Yup.object({
-        title: Yup.string().required("this is a required field").max(100,"maximum of 100 characters"),
-        category: Yup.string().required("this is a required field"),
-        note: Yup.string().required("this is a required field")
-    })
+  const iv = {
+    title: "",
+    category: "",
+    note: ""
+  }
+
+  const formValidation = Yup.object({
+    title: Yup.string().required("This is a required field").max(100, "Max of 100 characters"),
+    category: Yup.string().required("This is a required field"),
+    note: Yup.string().required("This is a required field")
+  })
 
   return (
     <main className='min-h-dvh p-3'>
-       <h1 className='md:max-w-md text-center text-3xl text-slate-700 mx-auto font-bold my-10'>Welcome to NollyPulse Research Collective - please fill in the form and drop a review about your favourite movies, anime series and even TV shows</h1>
+      <h1 className='md:max-w-md text-center text-3xl text-slate-700 mx-auto font-bold my-10'>Welcome to NollyPulse Research Collective - please fill in the form and drop a review about your favourite movies, anime series and even TV shows</h1>
 
-       <section className='md:max-w-2xl w-full mx-auto'>
+      <section className='md:max-w-2xl w-full mx-auto'>
         <Formik
-         initialValues={iv}
-         validationSchema={formValidation}
-         onSubmit={async (values, { resetForm }) => {
+          initialValues={iv}
+          validationSchema={formValidation}
+          onSubmit={async (values, { resetForm }) => {
             const dbObject = {
               ...values,
               userId: session.user.id,
@@ -61,7 +61,8 @@ const Client = ({session}) => {
 
             try {
               setSending(true)
-              const docRef = await addDoc(collection(db, "Moviereview"), dbObject);
+              const docRef = await addDoc(collection(db, "researches"), dbObject);
+              console.log(dbObject);
               handleClick({ vertical: 'top', horizontal: 'right' })
             } catch (error) {
               console.error("An error occurred", error)
@@ -75,38 +76,38 @@ const Client = ({session}) => {
             resetForm();
 
           }}
-          >
-            <Form className='shadow-lg rounded-md p-6 space-y-5'>
-                <div className='flex flex-col'>
-                    <label htmlFor="" className='text-sm text-gray-600 mb-2'>Movie Title</label>
-                    <Field name='title' placeholders="Enter Movie Title....." className="w-full border outline-none px-3 py-2 border-grey-600 rounded-md"/>
-                <ErrorMessage name='title' component={"p"} className='text-sm text-red-500 mt-2'/>
-                </div>
+        >
+          <Form className='shadow-lg rounded-md p-6 space-y-5'>
+            <div className='flex flex-col'>
+              <label htmlFor="" className='text-sm text-gray-600 mb-2'>review Title</label>
+              <Field name="title" placeholder="Enter Review Title..." className="w-full border outline-none px-3 py-2 border-gray-300 rounded-md" />
+              <ErrorMessage name='title' component={"p"} className='text-sm text-red-500 mt-2' />
+            </div>
+
+            <div className='flex flex-col'>
+              <label htmlFor="" className='text-sm text-gray-600 mb-2'>Select genre</label>
+              <Field name="category" component="select" className="w-full border outline-none px-3 py-2 border-gray-300 rounded-md">
                 
-                <div className='flex flex-col'>
-                    <label htmlFor="" className='text-sm text-gray-60 mb-2'>select Genre</label>
-                    <Field name="genre" component="select" className="w-full border outline-none px-3 py-2 border-grey-600 rounded-md">
-                       <option value="" disabled>Choose......</option>
-                        <option value="Movie">Movie</option>
-                        <option value="Series">Series</option>
-                        <option value="Anime">Anime</option>
-                        <option value="TV shows">TV shows</option>
-                        <option value="Block busters">Block busters</option>
-                        <option value="Nollywood">Nollywood</option>
-                        <option value="PG-18">PG-18</option>
-                        <option value="Action">Action</option>
-                        <option value="Comedy">Comedy</option>
-                        <option value="Drama">Drama</option>
-                    </Field>
-                    <ErrorMessage name='genre' component={"p"} className='text-sm text-red-500 mt-2'/>
-                </div>
+                <option value="" disabled>Choose......</option>
+                <option value="Movie">Movie</option>
+                <option value="Series">Series</option>
+                <option value="Anime">Anime</option>
+                <option value="TV shows">TV shows</option>
+                <option value="Block busters">Block busters</option>
+                <option value="Nollywood">Nollywood</option>
+                <option value="PG-18">PG-18</option>
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+              </Field>
+              <ErrorMessage name='category' component={"p"} className='text-sm text-red-500 mt-2' />
+            </div>
 
-                <div>
-                    <label htmlFor="" className='text-sm text-grey-600 mb-2'>Review description</label>
-                    <Field name="description" as="textarea" rows="10"className="w-full border outline-none px-3 py-2 border-grey-600 rounded-md"/>
-                <ErrorMessage name='description' component={"p"} className='text-sm text-red-500 mt-2'/>
-                </div>
-
+            <div>
+              <label htmlFor="" className='text-sm text-gray-600 mb-2'>Review Note</label>
+              <Field name="note" as="textarea" rows="10" placeholder="Enter Review Note..." className="w-full border outline-none px-3 py-2 border-gray-300 rounded-md" />
+              <ErrorMessage name='note' component={"p"} className='text-sm text-red-500 mt-2' />
+            </div>
 
             <button disabled={sending} type='submit' className='bg-slate-600 w-full flex items-center justify-center text-white p-3 rounded-md gap-2 font-semibold hover:bg-indigo-700 transition-all duration-200'>
               {
@@ -116,7 +117,7 @@ const Client = ({session}) => {
                     Sending...
                   </span> :
                   <span className='flex items-center justify-center gap-1'>
-                    Upload Review 
+                    Upload Review
                     <FaPaperPlane />
                   </span>
               }
@@ -125,7 +126,6 @@ const Client = ({session}) => {
             {/* <button onClick={handleClick({ vertical: 'top', horizontal: 'right' })}>
             Top-Right
           </button> */}
-
           </Form>
         </Formik>
         <Snackbar

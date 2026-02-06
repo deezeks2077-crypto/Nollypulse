@@ -7,7 +7,7 @@ import Link from 'next/link';
 const fetchSinglePost = async (id) => {
 
     try {
-        const docRef = doc(db, "Moviereview", id);
+        const docRef = doc(db, "researches", id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {

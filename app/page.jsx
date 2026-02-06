@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,8 +18,8 @@ Discover what to watch through PulseAI — tell us your vibe and get Nigerian-ac
 
 From cinema releases to YouTube gems, Lagos thrillers to village epics — NollyPulse helps you feel the heartbeat of Nigerian cinema before you press play.</p>
         <div className="flex items-center gap-10 max-md:flex-col">
-          <Link href={"#"} className="bg-red-600 px-6 py-3 uppercase font-semibold max-md:w-full text-center rounded-full">Explore Recommendations</Link>
-          <Link href={"#"} className="border px-6 py-3 font-semibold max-md:full text-center rounded-full">Find Out More</Link>
+          <Link href={"/resources"} className="bg-red-600 px-6 py-3 uppercase font-semibold max-md:w-full text-center rounded-full">Explore Recommendations</Link>
+          <Link href={"/about"} className="border px-6 py-3 font-semibold max-md:full text-center rounded-full">Find Out More</Link>
         </div>
        </div>
        </div>
