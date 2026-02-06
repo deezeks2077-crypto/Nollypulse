@@ -51,7 +51,7 @@ const Client = ({ session }) => {
     return (
         <main className='min-h-dvh max-lg:p-3'>
             <h1 className='capitalize text-center md:mt-10 mt-3 font-bold text-2xl md:text-3xl lg:w-1/2 mx-auto text-gray-900'>
-                a centralized access point for research papers, data sets, tools and references to support discoveries
+                a centralized access point for reviews, character data, tools and movie references to support movie discoveries
             </h1>
 
             {
